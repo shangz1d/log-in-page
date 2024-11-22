@@ -1,0 +1,93 @@
+<html><head><base href="https://websim.creation.engine/name-generator/"><title>Unique Name Generator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  h1 {
+    color: #4a4a4a;
+  }
+  #name-display {
+    font-size: 2rem;
+    margin: 1rem 0;
+    color: #2c3e50;
+    min-height: 3rem;
+  }
+  button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #2980b9;
+  }
+  .name-animation {
+    animation: fadeInOut 0.5s ease-in-out;
+  }
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Unique Name Generator</h1>
+  <div id="name-display"></div>
+  <button id="generate-btn">Generate Name</button>
+</div>
+
+<script>
+const prefixes = ['Zor', 'Aer', 'Cyr', 'Nyx', 'Vex', 'Quin', 'Lyr', 'Fae', 'Xan', 'Wren'];
+const suffixes = ['ian', 'ara', 'ith', 'ox', 'eon', 'ira', 'aris', 'yn', 'ex', 'ora'];
+const middles = ['el', 'ax', 'on', 'is', 'av', 'im', 'ul', 'en', 'or', 'ix'];
+
+function generateName() {
+  const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+  const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+  const useMiddle = Math.random() > 0.5;
+  
+  let name = prefix;
+  if (useMiddle) {
+    const middle = middles[Math.floor(Math.random() * middles.length)];
+    name += middle;
+  }
+  name += suffix;
+  
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+}
+
+const nameDisplay = document.getElementById('name-display');
+const generateBtn = document.getElementById('generate-btn');
+
+generateBtn.addEventListener('click', () => {
+  const newName = generateName();
+  nameDisplay.textContent = newName;
+  nameDisplay.classList.remove('name-animation');
+  void nameDisplay.offsetWidth; // Trigger reflow
+  nameDisplay.classList.add('name-animation');
+});
+
+// Generate a name on page load
+window.addEventListener('load', () => {
+  nameDisplay.textContent = generateName();
+});
+</script>
+</body></html>
